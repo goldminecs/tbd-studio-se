@@ -47,6 +47,17 @@
 				<ITEM NAME="NEO4J_1_X_X" VALUE="NEO4J_1_X_X" />
 			</ITEMS>
 		</PARAMETER>
+		
+		<PARAMETER
+            NAME="NOTE"
+            FIELD="LABEL"
+            NUM_ROW="4"
+            COLOR="255;0;0"
+            GROUP="CONNECTION_GROUP"
+            SHOW_IF="USE_EXISTING_CONNECTION == 'true'"
+        >
+            <DEFAULT>Please note that this component will not work with tNeo4jConnection setting in version 3.2.X.</DEFAULT>
+        </PARAMETER>
 
 		<PARAMETER NAME="REMOTE_SERVER" FIELD="CHECK"
 			REPOSITORY_VALUE="REMOTE_SERVER" NUM_ROW="4"
@@ -86,6 +97,7 @@
 		<PARAMETER NAME="PASSWORD" FIELD="PASSWORD" REQUIRED="true"
 			NUM_ROW="8" GROUP="CONNECTION_GROUP" REPOSITORY_VALUE="PASSWORD"
 			SHOW_IF="(USE_EXISTING_CONNECTION == 'false') AND (REMOTE_SERVER == 'true') AND ((SET_USERNAME == 'true') OR ((DB_VERSION != 'NEO4J_1_X_X') AND (DB_VERSION != 'NEO4J_2_1_X')))">
+			<DEFAULT>""</DEFAULT>
 		</PARAMETER>
 
 		<PARAMETER NAME="MAP" FIELD="EXTERNAL" NUM_ROW="9">
