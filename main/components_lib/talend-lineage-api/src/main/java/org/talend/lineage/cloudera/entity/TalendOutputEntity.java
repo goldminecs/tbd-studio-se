@@ -33,13 +33,22 @@ public class TalendOutputEntity extends TalendEntity {
 
     private List<String>        previousEntitiesId;
 
+    private List<String>        nextEntitiesId;
+
+
     @MRelation(role = RelationRole.SOURCE)
     private List<EndPointProxy> sourceProxies;
+
+    @MRelation(role = RelationRole.TARGET)
+    private List<EndPointProxy> targetProxies;
 
     public TalendOutputEntity(String jobId, String componentName) {
         super(jobId, componentName);
         sourceProxies = new ArrayList<EndPointProxy>();
+        targetProxies = new ArrayList<EndPointProxy>();
+
         previousEntitiesId = new ArrayList<String>();
+        nextEntitiesId = new ArrayList<String>();
     }
 
     public void addPreviousEntity(String entityId) {
@@ -48,12 +57,26 @@ public class TalendOutputEntity extends TalendEntity {
         this.sourceProxies.add(endpointProxy);
     }
 
+    public void addNextEntity(String entityId) {
+        this.nextEntitiesId.add(entityId);
+        EndPointProxy endpointProxy = new EndPointProxy(entityId, SourceType.SDK, EntityType.OPERATION_EXECUTION);
+        this.targetProxies.add(endpointProxy);
+    }
+
     public List<String> getPreviousEntitiesId() {
         return previousEntitiesId;
+    }
+    
+    public List<String> getNextEntitiesId() {
+        return nextEntitiesId;
     }
 
     public List<EndPointProxy> getSourceProxies() {
         return sourceProxies;
+    }
+
+    public List<EndPointProxy> getTargetProxies() {
+        return targetProxies;
     }
 
     @Override
@@ -71,5 +94,9 @@ public class TalendOutputEntity extends TalendEntity {
             String id = GeneratorID.generateNodeID(this.getJobId(), input);
             this.addPreviousEntity(id);
         }
+
+        // set the output
+        String idOut = GeneratorID.generateNodeID(this.getJobId(), this.getName());
+        this.addNextEntity(this.getEntityId());
     }
 }

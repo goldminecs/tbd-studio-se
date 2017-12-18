@@ -33,13 +33,20 @@ public class TalendInputEntity extends TalendEntity {
 
     private List<String>        nextEntitiesId;
 
+    private List<String>        previousEntitiesId;
+
+    @MRelation(role = RelationRole.SOURCE)
+    private List<EndPointProxy> sourceProxies;
+
     @MRelation(role = RelationRole.TARGET)
     private List<EndPointProxy> targetProxies;
 
     public TalendInputEntity(String jobId, String componentName) {
         super(jobId, componentName);
         targetProxies = new ArrayList<EndPointProxy>();
+        sourceProxies = new ArrayList<EndPointProxy>();
         nextEntitiesId = new ArrayList<String>();
+        previousEntitiesId = new ArrayList<String>();
     }
 
     public void addNextEntity(String entityId) {
@@ -48,12 +55,26 @@ public class TalendInputEntity extends TalendEntity {
         this.targetProxies.add(endpointProxy);
     }
 
+    public void addPreviousEntity(String entityId) {
+        this.previousEntitiesId.add(entityId);
+        EndPointProxy endpointProxy = new EndPointProxy(entityId, SourceType.SDK, EntityType.OPERATION_EXECUTION);
+        this.sourceProxies.add(endpointProxy);
+    }
+
+    public List<String> getPreviousEntitiesId() {
+        return previousEntitiesId;
+    }
+
     public List<String> getNextEntitiesId() {
         return nextEntitiesId;
     }
 
     public List<EndPointProxy> getTargetProxies() {
         return targetProxies;
+    }
+
+    public List<EndPointProxy> getSourceProxies() {
+        return sourceProxies;
     }
 
     @Override
@@ -66,12 +87,15 @@ public class TalendInputEntity extends TalendEntity {
      */
     @Override
     public void connectToEntity(List<String> inputs, List<String> outputs) {
-        for (String output : outputs) {
-            // generate the id of the component to connect to
-            String id = GeneratorID.generateNodeID(this.getJobId(), output);
-            this.addNextEntity(id);
-        }
+    	// set the input
+    	String idIn = GeneratorID.generateNodeID(this.getJobId(), this.getName());
+    	this.addPreviousEntity(this.getEntityId());
 
+    	for (String output : outputs) {
+    		// generate the id of the component to connect to
+    		String id = GeneratorID.generateNodeID(this.getJobId(), output);
+    		this.addNextEntity(id);
+	     }
     }
 
 }

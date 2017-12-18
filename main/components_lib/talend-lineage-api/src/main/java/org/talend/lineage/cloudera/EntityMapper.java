@@ -72,6 +72,7 @@ public class EntityMapper {
                 TalendEntity parentEntity = mapToParentEntity(navigatorNode);
                 List<TalendEntityChild> childrenEntities = mapToChildrenEntities(navigatorNode.getSchema(),
                         parentEntity.getName());
+                // add target for children Entity
                 connectChildrenToParent(parentEntity, childrenEntities);
                 connectChildrenToTarget(navigatorNode, childrenEntities);
                 output.addAll(childrenEntities);

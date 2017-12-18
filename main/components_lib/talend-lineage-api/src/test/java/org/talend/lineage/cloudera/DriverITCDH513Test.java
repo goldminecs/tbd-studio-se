@@ -40,16 +40,16 @@ public class DriverITCDH513Test {
 
         plugin.registerModels(DriverITCDH513Test.class.getClass().getPackage().getName());
 
-        MyCustomEntity myCustomEntity = new MyCustomEntity(plugin.getNamespace(), "My custom entity 1");
-        myCustomEntity.setDescription("I am a custom entity 1");
+        MyCustomEntity myCustomEntity = new MyCustomEntity(plugin.getNamespace(), "My custom entity 5");
+        myCustomEntity.setDescription("I am a custom entity 3");
         myCustomEntity.setLink("http://fr.talend.com/");
         myCustomEntity.setIndex(10);
         myCustomEntity.setSteward("chang");
         myCustomEntity.setStarted(Instant.now());
         myCustomEntity.setEnded((new Instant(Instant.now().toDate().getTime() + 10000)));
 
-        MyCustomEntity myCustomEntity2 = new MyCustomEntity(plugin.getNamespace(), "My custom entity 2");
-        myCustomEntity2.setDescription("I am a custom entity 2");
+        MyCustomEntity myCustomEntity2 = new MyCustomEntity(plugin.getNamespace(), "My custom entity 6");
+        myCustomEntity2.setDescription("I am a custom entity 4");
         myCustomEntity2.setLink("http://fr.talend.com/");
         myCustomEntity2.setIndex(10);
         myCustomEntity2.setSteward("chang");
@@ -69,7 +69,7 @@ public class DriverITCDH513Test {
 
         // Write custom entities to cloudera navigator
         ResultSet results = plugin.write(Arrays.asList(myCustomEntity, myCustomEntity2));
-        
+        System.out.println("res = " + results.toString());
         assertFalse(results.hasErrors());
         
         // Read and check custom entities from cloudera navigator
