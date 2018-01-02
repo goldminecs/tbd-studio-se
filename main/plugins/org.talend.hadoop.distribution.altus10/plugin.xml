@@ -6,9 +6,9 @@
 
         <libraryNeeded
             context="plugin:org.talend.hadoop.distribution.altus10"
-            id="talend-bigdata-launcher-1.2.2-20171206.jar"
-            name="talend-bigdata-launcher-1.2.2-20171206.jar"
-            mvn_uri="mvn:org.talend.libraries/talend-bigdata-launcher-1.2.2-20171206/6.0.0">
+            id="talend-bigdata-launcher-1.2.2-20180101.jar"
+            name="talend-bigdata-launcher-1.2.2-20180101.jar"
+            mvn_uri="mvn:org.talend.libraries/talend-bigdata-launcher-1.2.2-20180101/6.0.0">
         </libraryNeeded>
         
         <libraryNeeded
@@ -39,6 +39,13 @@
             mvn_uri="mvn:org.talend.libraries/amazon-kinesis-client-1.6.0/6.0.0">
         </libraryNeeded>
 
+        <libraryNeeded
+            context="plugin:org.talend.hadoop.distribution.altus10"
+            id="azure-data-lake-store-sdk-2.2.3.jar"
+            name="azure-data-lake-store-sdk-2.2.3.jar"
+            mvn_uri="mvn:org.talend.libraries/azure-data-lake-store-sdk-2.2.3/6.0.0">
+        </libraryNeeded>
+
         <!-- HDFS common group -->
         <libraryNeededGroup
                 description="HDFS libraries for Altus 1.0"
@@ -67,7 +74,7 @@
         	  description="Big Data launcher libraries for Altus 1.0"
               id="BIGDATA-LAUNCHER-LIB-ALTUS10"
               name="BIGDATA-LAUNCHER-LIB-ALTUS10">
-            <library id="talend-bigdata-launcher-1.2.2-20171206.jar"/>
+            <library id="talend-bigdata-launcher-1.2.2-20180101.jar"/>
         </libraryNeededGroup>
         
         <!-- HDFS Spark 1.6 group -->
@@ -318,6 +325,7 @@
                 description="Spark Azure libraries that are MRREQUIRED"
                 id="SPARK-AZURE-LIB-MRREQUIRED-ALTUS10"
                 name="SPARK-AZURE-LIB-MRREQUIRED-ALTUS10">
+                <library id="azure-data-lake-store-sdk-2.2.3.jar"/>
                 <library id="azure-storage-2.2.0"/>
                 <library id="hadoop-azure-2.7.4"/>
                 <library id="jetty-util-6.1.26.cloudera.2.jar"/>
