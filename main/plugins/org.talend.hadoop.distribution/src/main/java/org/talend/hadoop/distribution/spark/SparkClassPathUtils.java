@@ -17,9 +17,6 @@ import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
-import org.eclipse.m2e.core.MavenPlugin;
-import org.talend.core.GlobalServiceRegister;
-import org.talend.designer.runprocess.IRunProcessService;
 import org.talend.hadoop.distribution.utils.ModuleGroupsUtils;
 
 /**
@@ -43,32 +40,9 @@ public class SparkClassPathUtils {
     public static String generateSparkJarsPaths(List<String> commandLineJarsPaths, String sparkModuleGroupName) {
         Set<String> sparkYarnJarsIDs = new HashSet<>(ModuleGroupsUtils.getModuleLibrariesIDs(sparkModuleGroupName));
         List<String> sparkYarnJarsPaths = new java.util.ArrayList<>();
-        String repoPath = MavenPlugin.getMaven().getLocalRepositoryPath();
-        repoPath = repoPath.substring(0, repoPath.lastIndexOf("/") + 1); //$NON-NLS-1$
         for (String jar : commandLineJarsPaths) {
             if (sparkYarnJarsIDs.contains(jar.substring(jar.lastIndexOf("/") + 1, jar.length()))) { //$NON-NLS-1$
                 sparkYarnJarsPaths.add(jar);
-            } else {
-                if (GlobalServiceRegister.getDefault().isServiceRegistered(IRunProcessService.class)) {
-                    IRunProcessService service = (IRunProcessService) GlobalServiceRegister.getDefault().getService(IRunProcessService.class);
-                    if (!service.isExportConfig()) {
-                        if (".".equals(jar) || jar.endsWith("/classes")) { //$NON-NLS-1$  //$NON-NLS-2$
-                            continue;
-                        }
-                        int index = jar.lastIndexOf("."); //$NON-NLS-1$
-                        if (index != -1) {
-                            String suffix = jar.substring(index);
-                            if (StringUtils.isNotBlank(suffix)) {
-                                String jarName = jar.substring(jar.lastIndexOf("/") + 1); //$NON-NLS-1$
-                                jarName = jarName.substring(0, jarName.lastIndexOf("-")); //$NON-NLS-1$
-                                jarName = jarName + suffix;
-                                if (sparkYarnJarsIDs.contains(jarName)) {
-                                    sparkYarnJarsPaths.add(repoPath + jar);
-                                }
-                            }
-                        }
-                    }
-                }
             }
         }
         return StringUtils.join(sparkYarnJarsPaths, SEPARATOR);
