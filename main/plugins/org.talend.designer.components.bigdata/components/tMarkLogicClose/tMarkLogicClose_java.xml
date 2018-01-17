@@ -13,7 +13,7 @@
 
     <FAMILIES>
         <FAMILY>Big Data/MarkLogic</FAMILY>
-        <FAMILY>Databases/MarkLogic</FAMILY>
+        <FAMILY>Databases/DB Specifics/MarkLogic</FAMILY>
     </FAMILIES>
 
     <DOCUMENTATION>
