@@ -29,10 +29,10 @@ public class Altus10SparkBatchModuleGroup {
             SparkBatchConstant.SPARK_LOCAL_MODE_PARAMETER, EqualityOperator.EQ, "false")); //$NON-NLS-1$
 
     private final static ComponentCondition conditionS3 = new SimpleComponentCondition(new BasicExpression(
-            SparkBatchConstant.ALTUS_CLOUD_PROVIDER, EqualityOperator.EQ, "ALTUS_AWS_CLOUD")); //$NON-NLS-1$
+            SparkBatchConstant.ALTUS_CLOUD_PROVIDER, EqualityOperator.EQ, "\"AWS\"")); //$NON-NLS-1$
 
     private final static ComponentCondition conditionAzureFS = new SimpleComponentCondition(new BasicExpression(
-            SparkBatchConstant.ALTUS_CLOUD_PROVIDER, EqualityOperator.EQ, "ALTUS_AZURE_CLOUD")); //$NON-NLS-1$
+            SparkBatchConstant.ALTUS_CLOUD_PROVIDER, EqualityOperator.EQ, "\"Azure\"")); //$NON-NLS-1$
 
     public static Set<DistributionModuleGroup> getModuleGroups() {
         Set<DistributionModuleGroup> hs = new HashSet<>();
@@ -43,6 +43,7 @@ public class Altus10SparkBatchModuleGroup {
         hs.add(new DistributionModuleGroup(Altus10Constant.SPARK_AZURE_MRREQUIRED_MODULE_GROUP.getModuleName(), true,
                 conditionAzureFS));
         hs.add(new DistributionModuleGroup(Altus10Constant.BIGDATALAUNCHER_MODULE_GROUP.getModuleName(), true, condition));
+        hs.add(new DistributionModuleGroup(Altus10Constant.GRAPHFRAMES_MRREQUIRED_MODULE_GROUP.getModuleName(), true, condition));
         return hs;
     }
 }
